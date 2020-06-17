@@ -1,19 +1,52 @@
 html {
     background-color: #f5f5f5;
     font-family: sans-serif;
+    margin: 16px auto;
+    width: 90%;
+    font-size: 22px;
 }
 
+h1 {
+    font-size: 28px;
+    color: #1e1e1e;
+    font-weight: 600;
+}
+
+#hello {
+    cursor: pointer;
+    display: inline-block;
+}
+
+#hello:hover {
+    animation: wave 300ms;
+    text-decoration: none;
+}
+
+@keyframes wave {
+    25% { transform: rotate(30deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(30deg); }
+  }
+
 a {
-    color: #2e2e5e;
+    color: #2e4e6e;
     text-decoration: none;
     font-weight: bold;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 ul {
-    padding: 8px 16px;
+    padding: 0;
     list-style: none;
 }
 
 li {
-    padding: 4px;
+    padding: 4px 0;
+}
+
+.projects {
+    margin: 42px 0;
 }
