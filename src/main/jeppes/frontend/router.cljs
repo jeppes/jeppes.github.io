@@ -38,5 +38,3 @@
                            {:on-click #(push! (join "/" url))})
                     text]
      :else [:a.link (merge props {:href url}) text])))
-
-(join "/" [])
