@@ -72,6 +72,7 @@ li {
 
 .placeholder {
     display: block;
+    margin-bottom: 4px;
 }
 
 .placeholder > span {

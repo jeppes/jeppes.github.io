@@ -55,17 +55,21 @@
        [:div [:small (format-date updated-at)]]]
       [:<>
        [placeholder 30 :small]
-       [:br]
        [placeholder 16 :small]])]])
 
-(defn- blog-preview-small [{name :name description :description current-name :current-name}]
+(defn- blog-preview-small [{name :name description :description current-name :current-name updated-at :updated_at}]
   [link ["blog" name]
    [:div.blog-preview-small
     {:class (when (= name current-name) "selected")}
     [:p name]
-    (if description
-      [:small description]
-      [placeholder 16 :small])]])
+    (if (and description updated-at)
+      [:<>
+       [:small description]
+       [:br]
+       [:small (format-date updated-at)]]
+      [:<>
+       [placeholder 14 :small]
+       [placeholder 18 :small]])]])
 
 (defn- blog-entry [_]
   (let [state (r/atom {})]
@@ -82,6 +86,7 @@
     [blog-entry name]
     [:ul
      (for [post-name blogs]
-       ^{:key post-name} [:li [blog-preview-small (merge {:name post-name
-                                                          :current-name name}
-                                                         (get repos post-name))]])]])
+       ^{:key post-name}
+       [:li [blog-preview-small (merge {:name post-name
+                                        :current-name name}
+                                       (get repos post-name))]])]])

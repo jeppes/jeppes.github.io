@@ -16,7 +16,7 @@
     [:p "My background is in computer science and I have a particular interest "
      "in functional programming languages and patterns."]]
    [:h1 "Posts"]
-   [:div.posts
+   [:section.posts
     (for [name blog-posts]
       ^{:key name} [blog-preview (merge {:name name} (get repos name))])]
    [:section.projects
