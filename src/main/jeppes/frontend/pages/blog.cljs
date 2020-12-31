@@ -50,11 +50,11 @@
     [:h2 name]
     (if (and description updated-at)
       [:<>
-       [:div [:small description]]
-       [:br]
-       [:div [:small (format-date updated-at)]]]
+       [:p description]
+       [:p (format-date updated-at)]]
       [:<>
        [placeholder 30 :small]
+       [:br]
        [placeholder 16 :small]])]])
 
 (defn- blog-preview-small [{name :name description :description current-name :current-name updated-at :updated_at}]
@@ -67,8 +67,8 @@
        [:p description]
        [:p (format-date updated-at)]]
       [:<>
-       [placeholder 14 :small]
-       [placeholder 18 :small]])]])
+       [placeholder 39 :small]
+       [placeholder 28 :small]])]])
 
 (defn- blog-entry [_]
   (let [state (r/atom {})]
