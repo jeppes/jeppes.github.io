@@ -1,7 +1,33 @@
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color:#191919;
+        --background-color-contrast:#333;
+        --background-color-placeholder: #666;
+        --link-color: #3396f6;
+        --text-color: white;
+
+        --selection-opacity: 0.5;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --background-color:#f5f5f5;
+        --background-color-contrast: white;
+        --background-color-placeholder: #ccc;
+        --link-color: #0366d6;
+        --text-color: #101010;
+
+        --selection-opacity: 0.5;
+    }
+}
+
 html {
-    background-color: #f5f5f5;
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+    margin: 0;
     font-family: sans-serif;
-    margin: 16px auto;
     font-size: 20px;
 }
 
@@ -22,7 +48,7 @@ html {
 .blog-post {
     max-width: 100%;
     width: 800px;
-    background-color: white;
+    background-color: var(--background-color-contrast);
     border-radius: 5px;
     padding: 32px;
     margin-bottom: 16px;
@@ -30,7 +56,7 @@ html {
 
 h1 {
     font-size: 28px;
-    color: #202020;
+    /* color: #202020; */
     font-weight: 600;
 }
 
@@ -51,7 +77,7 @@ h1 {
 }
 
 a {
-    color: #0366d6;
+    color: var(--link-color);
     text-decoration: none;
     font-weight: bold;
 }
@@ -76,8 +102,8 @@ li {
 }
 
 .placeholder > span {
-    background-color: #ccc;
-    color: #ccc;
+    background-color: var(--background-color-placeholder);
+    color: var(--background-color-placeholder);
     margin-bottom: 8px;
     animation: fade-in-out infinite 2s;
     animation-iteration-count: infinite;
@@ -89,11 +115,12 @@ li {
 
 .link {
     cursor: pointer;
+
 }
 .blog-preview {
     padding: 8px;
     border-radius: 5px;
-    background-color: white;
+    background-color: var(--background-color-contrast);
     margin-bottom: 16px;
 
     cursor: pointer;
@@ -105,13 +132,13 @@ li {
 }
 
 .blog-preview > p, .blog-preview-small > p {
-    color: #444;
+    color: var(--text-color);
     font-weight: normal;
     text-transform: none;
 }
 
 .blog-preview-small {
-    background-color: white;
+    background-color: var(--background-color-contrast);
     border-radius: 5px;
     padding: 12px 8px;
     margin-left: 8px;
@@ -121,7 +148,7 @@ li {
 }
 
 .blog-preview-small.selected {
-    opacity: 0.8;
+    opacity: var(--selection-opacity);
 }
 
 .blog-preview-small > p, .blog-preview-small > h3 {
