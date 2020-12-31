@@ -20,7 +20,7 @@ html {
 }
 
 .blog-post {
-    max-width: 800px;
+    max-width: 100%;
     width: 800px;
     background-color: white;
     border-radius: 5px;
