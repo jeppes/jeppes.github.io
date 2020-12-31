@@ -6,9 +6,8 @@
             [clojure.string :refer [split join]]))
 
 
-(defn- dispatch! [on-route-changed]
-  (let [pathname  (-> js/window .-location .-pathname)
-        path (-> (split pathname "/") rest vec)]
+(defn- dispatch! [token on-route-changed]
+  (let [path (-> (split token "/") rest vec)]
     (on-route-changed path)))
 
 (def history (Html5History.))
@@ -17,10 +16,10 @@
   (doto history
    (events/listen
     EventType/NAVIGATE
-    (fn []
-      (dispatch! on-route-changed)))
+    (fn [^js event]
+      (dispatch! (.-token event) on-route-changed)))
     (.setUseFragment false)
-    (.setPathPrefix "")
+    (.setPathPrefix "#")
     (.setEnabled true)))
 
 (defn install-routes! [on-route-changed]
