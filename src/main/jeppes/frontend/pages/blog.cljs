@@ -44,28 +44,28 @@
    [placeholder 36]
    [placeholder 38]])
 
-(defn blog-preview [{name :name description :description updated-at :updated_at}]
+(defn blog-preview [{name :name description :description created-at :created_at}]
   [link ["blog" name]
    [:article.blog-preview
     [:h2 name]
-    (if (and description updated-at)
+    (if (and description created-at)
       [:<>
        [:p description]
-       [:p (format-date updated-at)]]
+       [:p (format-date created-at)]]
       [:<>
        [placeholder 30 :small]
        [:br]
        [placeholder 16 :small]])]])
 
-(defn- blog-preview-small [{name :name description :description current-name :current-name updated-at :updated_at}]
+(defn- blog-preview-small [{name :name description :description current-name :current-name created-at :created_at}]
   [link ["blog" name]
    [:div.blog-preview-small
     {:class (when (= name current-name) "selected")}
     [:h3 name]
-    (if (and description updated-at)
+    (if (and description created-at)
       [:<>
        [:p description]
-       [:p (format-date updated-at)]]
+       [:p (format-date created-at)]]
       [:<>
        [placeholder 39 :small]
        [placeholder 28 :small]])]])
