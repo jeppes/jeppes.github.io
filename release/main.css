@@ -104,7 +104,7 @@ li {
     margin-bottom: 16px;
 }
 
-.blog-preview > div, .blog-preview-small > small {
+.blog-preview > div, .blog-preview-small > p {
     color: #444;
     font-weight: normal;
     text-transform: none;
@@ -115,13 +115,15 @@ li {
     border-radius: 5px;
     padding: 12px 8px;
     margin-left: 8px;
-    display: block;
+    display: inline-block;
+    max-width: 400px;
+    width: 400px;
 }
 
 .blog-preview-small.selected {
     opacity: 0.8;
 }
 
-.blog-preview-small > p {
+.blog-preview-small > p, .blog-preview-small > h3 {
     margin: 4px 0;
 }
