@@ -117,6 +117,10 @@ li {
     display: block;
 }
 
+.blog-preview-small.selected {
+    opacity: 0.8;
+}
+
 .blog-preview-small > p {
     margin: 4px 0;
 }
