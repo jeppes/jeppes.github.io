@@ -2,6 +2,7 @@
   (:require [reagent.core :as r]
             [reagent.dom :as dom]
             [clojure.core.match :refer [match]]
+            [jeppes.frontend.router :refer [install-routes!]]
             [jeppes.frontend.pages.blog :refer [blog-page]]
             [jeppes.frontend.pages.home :refer [home-page]]
             [jeppes.frontend.pages.notfound :refer [not-found]]
