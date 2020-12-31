@@ -20,7 +20,7 @@
 (defn root-page [state]
   (match (@state :route)
     ["blog" name] [blog-page (merge {:name name} @state)]
-    [] [home-page @state] 
+    [] [home-page @state]
     :else [not-found]))
 
 (defn mount []
