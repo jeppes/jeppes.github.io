@@ -61,12 +61,11 @@
   [link ["blog" name]
    [:div.blog-preview-small
     {:class (when (= name current-name) "selected")}
-    [:p name]
+    [:h3 name]
     (if (and description updated-at)
       [:<>
-       [:small description]
-       [:br]
-       [:small (format-date updated-at)]]
+       [:p description]
+       [:p (format-date updated-at)]]
       [:<>
        [placeholder 14 :small]
        [placeholder 18 :small]])]])
