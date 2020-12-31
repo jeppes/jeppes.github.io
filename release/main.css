@@ -104,7 +104,7 @@ li {
     margin-bottom: 16px;
 }
 
-.blog-preview > div, .blog-preview-small > p {
+.blog-preview > p, .blog-preview-small > p {
     color: #444;
     font-weight: normal;
     text-transform: none;
