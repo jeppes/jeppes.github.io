@@ -12,10 +12,10 @@
                         :repos []
                         :blogs ["oops" "maybe-not-reflections"]}))
 
-(defonce init (-> "https://api.github.com/users/jeppes/repos"
-                  (fetch-json!)
-                  (.then #(zipmap (map :name %) %))
-                  (.then #(swap! state assoc :repos %))))
+(defonce init-state (-> "https://api.github.com/users/jeppes/repos"
+                        (fetch-json!)
+                        (.then #(zipmap (map :name %) %))
+                        (.then #(swap! state assoc :repos %))))
 
 (defn root-page [state]
   (match (@state :route)

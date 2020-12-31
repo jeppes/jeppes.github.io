@@ -18,14 +18,14 @@
     EventType/NAVIGATE
     (fn [^js event]
       (dispatch! (.-token event) on-route-changed)))
-    (.setUseFragment false)
+    (.setUseFragment true)
     (.setPathPrefix "#")
     (.setEnabled true)))
 
 (defn install-routes! [on-route-changed]
   (hook-browser-navigation! on-route-changed))
 
-(defn- push! [url] 
+(defn- push! [url]
   (.setToken history (str "/" url)))
 
 (defn link
