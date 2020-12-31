@@ -3,9 +3,7 @@
             [jeppes.frontend.pages.blog :refer [blog-preview]]))
 
 (defn home-page [{blog-posts :blogs repos :repos}]
-  (for [name blog-posts]
-    (print (merge {:name name} (get repos name))))
-  [:div.home
+  [:div.home-page
    [:section
     [:h1 "Hej " [link {:id "hello"} "https://github.com/jeppes/" "👋"]]
     [:p "I am a programmer based in Stockholm working at "

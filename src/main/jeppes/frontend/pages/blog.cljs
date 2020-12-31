@@ -18,11 +18,15 @@
         (js/Date.)
         (.toLocaleDateString "en-US" options))))
 
-(defn- placeholder [length]
-  [:p [:span.placeholder (->> (gstring/unescapeEntities "&nbsp;")
-                              (repeat)
-                              (take length)
-                              (join))]])
+(defn- placeholder
+  ([length] [placeholder length :p])
+  ([length element]
+   [element {:class-name "placeholder"}
+    [:span (->> (gstring/unescapeEntities "&nbsp;")
+                (repeat)
+                (take length)
+                (join))]]))
+
 (defn- blog-placeholder []
   [:<>
    [placeholder 16]
@@ -44,18 +48,33 @@
   [link ["blog" name]
    [:article.blog-preview
     [:h2 name]
-    (if description
-      [:p description]
-      [placeholder 30])
-    (if updated-at
-      [:p "Updated " (format-date updated-at)]
-      [placeholder 16])]])
+    (if (and description updated-at)
+      [:<>
+       [:div [:small description]]
+       [:br]
+       [:div [:small (format-date updated-at)]]]
+      [:<>
+       [placeholder 30 :small]
+       [:br]
+       [placeholder 16 :small]])]])
 
-(defn blog-page [name]
+(defn- blog-preview-small [{name :name description :description updated-at :updated_at}]
+  [link ["blog" name]
+   [:div.blog-preview-small
+    [:p name]
+    (if description
+      [:small description]
+      [placeholder 16 :small])]])
+
+(defn blog-page [{name :post blogs :blogs repos :repos}]
   (let [state (r/atom {})]
     (download-blog-post! name #(swap! state assoc :text %))
-    (fn [_]
-      [:article.blog
-       (if (@state :text)
-         [markdown (@state :text)]
-         [blog-placeholder])])))
+    (fn [{blogs :blogs repos :repos}]
+      [:div.blog-page
+       [:article.blog-post
+        (if (@state :text)
+          [markdown (@state :text)]
+          [blog-placeholder])]
+       [:ul
+        (for [name blogs]
+          ^{:key name} [:li [blog-preview-small (merge {:name name} (get repos name))]])]])))

@@ -19,7 +19,7 @@
 
 (defn root-page [state]
   (match (@state :route)
-    ["blog" post] [blog-page post]
+    ["blog" post] [blog-page (merge @state {:post post})]
     [] [home-page @state] 
     :else [not-found]))
 
