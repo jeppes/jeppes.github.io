@@ -58,23 +58,30 @@
        [:br]
        [placeholder 16 :small]])]])
 
-(defn- blog-preview-small [{name :name description :description updated-at :updated_at}]
+(defn- blog-preview-small [{name :name description :description current-name :current-name}]
   [link ["blog" name]
    [:div.blog-preview-small
+    {:class (when (= name current-name) "selected")}
     [:p name]
     (if description
       [:small description]
       [placeholder 16 :small])]])
 
-(defn blog-page [{name :post blogs :blogs repos :repos}]
+(defn- blog-entry [_]
   (let [state (r/atom {})]
-    (download-blog-post! name #(swap! state assoc :text %))
-    (fn [{blogs :blogs repos :repos}]
-      [:div.blog-page
-       [:article.blog-post
-        (if (@state :text)
-          [markdown (@state :text)]
-          [blog-placeholder])]
-       [:ul
-        (for [name blogs]
-          ^{:key name} [:li [blog-preview-small (merge {:name name} (get repos name))]])]])))
+    (fn [name]
+      (download-blog-post! name #(swap! state assoc :text %))
+      [:article.blog-post
+       [link [""] "Home"]
+       (if (@state :text)
+         [markdown (@state :text)]
+         [blog-placeholder])])))
+
+(defn blog-page [{name :name blogs :blogs repos :repos}]
+   [:div.blog-page
+    [blog-entry name]
+    [:ul
+     (for [post-name blogs]
+       ^{:key post-name} [:li [blog-preview-small (merge {:name post-name
+                                                          :current-name name}
+                                                         (get repos post-name))]])]])
