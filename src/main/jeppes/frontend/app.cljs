@@ -10,7 +10,7 @@
 
 (defonce state (r/atom {:route []
                         :repos []
-                        :blogs ["maybe-not-reflections" "oops"]}))
+                        :blogs ["evolvable-apis" "maybe-not-reflections" "oops"]}))
 
 (defonce init-state (-> "https://api.github.com/users/jeppes/repos"
                         (fetch-json!)
