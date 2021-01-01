@@ -11,5 +11,4 @@
                               :language (.-language args)}))
 
 (defn markdown [text]
-  [:p "asdf"]
   [:> ReactMarkdown {:renderers {:code highlight}} text])
