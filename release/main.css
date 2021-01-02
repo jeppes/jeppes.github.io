@@ -107,10 +107,13 @@ li {
     margin-bottom: 8px;
     animation: fade-in-out infinite 2s;
     animation-iteration-count: infinite;
+    animation-delay: 0.5s;
+    opacity: 0.1;
 }
 
-@keyframes fade-in-out{
-    50% { opacity: 0.5; }
+@keyframes fade-in-out {
+    50% { opacity: 1; }
+    100% { opacity: 0.1;}
 }
 
 .link {
