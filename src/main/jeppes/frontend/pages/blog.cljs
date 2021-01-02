@@ -78,7 +78,11 @@
        [link [""] "Home"]
        (if (@state :text)
          [markdown (@state :text)]
-         [blog-placeholder])])))
+         [blog-placeholder])
+       [:hr]
+       [:p
+        "If you liked this post or want to leave feedback, view it on "
+        [link (str "https://github.com/jeppes/" name)  "Github"] "."]])))
 
 (defn blog-page [{name :name blogs :blogs repos :repos}]
    [:div.blog-page
