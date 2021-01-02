@@ -7,8 +7,8 @@
 
 (defn- highlight [^js args]
   (r/create-element PrismAsyncLight #js{:style darcula
-                              :children (.-value args)
-                              :language (.-language args)}))
+                                        :children (.-value args)
+                                        :language (.-language args)}))
 
 (defn markdown [text]
   [:> ReactMarkdown {:renderers {:code highlight}} text])

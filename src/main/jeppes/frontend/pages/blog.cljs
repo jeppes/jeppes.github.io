@@ -73,7 +73,9 @@
 (defn- blog-entry [_]
   (let [state (r/atom {})]
     (fn [name]
-      (download-blog-post! name #(swap! state assoc :text %))
+      (when (not= name (@state :name))
+        (reset! state {:name name})
+        (download-blog-post! name #(swap! state assoc :text %)))
       [:article.blog-post
        [link [""] "Home"]
        (if (@state :text)
