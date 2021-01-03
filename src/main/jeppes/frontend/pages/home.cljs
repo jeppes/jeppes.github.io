@@ -8,7 +8,7 @@
     [:h1 "Hej " [link {:id "hello"} "https://github.com/jeppes/" "👋"]]
     [:p "I am a programmer based in Stockholm working at "
      [link "https://www.sanalabs.com/" "Sana Labs"] "."]
-    [:p "Previously, I've worked worked on various software related things at "
+    [:p "Previously, I've worked on various software related things at "
      [link "https://www.spotify.com/" "Spotify"] ", "
      [link "https://www.mentimeter.com/" "Mentimeter"] ", "
      [link "https://www.ef.com/" "EF"] ", and "
