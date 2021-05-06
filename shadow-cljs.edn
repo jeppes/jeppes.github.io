@@ -11,5 +11,6 @@
  :dev-http {8080 "public"}
 
  :builds
- {:frontend {:target :browser
+ {:frontend {:devtools {:repl-pprint true}
+             :target :browser
              :modules {:main {:init-fn jeppes.frontend.app/init!}}}}}

@@ -27,4 +27,3 @@
      [:li [link "https://github.com/spotify/Mobius.swift" "Mobius.swift"] " - A state management library I helped build while at Spotify."]
      [:li [link "https://github.com/jeppes/tills" "tills"] " - A toy programming language."]]
     [:p "Check out my " [link "https://github.com/jeppes" "Github"] " for more"]]])
-

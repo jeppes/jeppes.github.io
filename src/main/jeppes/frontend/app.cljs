@@ -1,25 +1,16 @@
 (ns jeppes.frontend.app
-  (:require [reagent.core :as r]
-            [reagent.dom :as dom]
-            [clojure.core.match :refer [match]]
-            [jeppes.frontend.router :refer [install-routes!]]
-            [jeppes.frontend.pages.blog :refer [blog-page]]
-            [jeppes.frontend.pages.home :refer [home-page]]
-            [jeppes.frontend.pages.notfound :refer [not-found]]
-            [jeppes.frontend.data :refer [fetch-json!]]))
-
-(defonce state (r/atom {:route []
-                        :repos []
-                        :blogs ["make-smaller-changes" "evolvable-apis" "maybe-not-reflections" "oops" "funktioner"]}))
-
-(defonce _ (-> "https://api.github.com/users/jeppes/repos"
-               (fetch-json!)
-               (.then #(zipmap (map :name %) %))
-               (.then #(swap! state assoc :repos %))))
+  (:require
+   [reagent.dom :as dom]
+   [clojure.core.match :refer [match]]
+   [jeppes.frontend.state :refer [state fetch-repos! navigate-to!]]
+   [jeppes.frontend.router :refer [install-routes!]]
+   [jeppes.frontend.pages.blog :refer [blog-page]]
+   [jeppes.frontend.pages.home :refer [home-page]]
+   [jeppes.frontend.pages.notfound :refer [not-found]]))
 
 (defn root-page [state]
   (match (@state :route)
-    ["blog" name] [blog-page (merge {:name name} @state)]
+    ["blog" name]  [blog-page (merge {:name name} @state)]
     [] [home-page @state]
     :else [not-found]))
 
@@ -27,9 +18,10 @@
   (dom/render [root-page state]
               (js/document.getElementById "root")))
 
-(defn init! [] 
-  (mount)
-  (install-routes! #(swap! state assoc :route %)))
-
 (defn ^:dev/after-load start []
-  (init!))
+  (mount)
+  (install-routes! #(navigate-to! %)))
+
+(defn init! []
+  (fetch-repos!)
+  (start))

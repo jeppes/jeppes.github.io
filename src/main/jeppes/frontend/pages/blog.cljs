@@ -1,16 +1,9 @@
 (ns jeppes.frontend.pages.blog
   (:require
-   [reagent.core :as r]
    [goog.string :as gstring]
    [clojure.string :refer [join]]
    [jeppes.frontend.markdown :refer [markdown]]
-   [jeppes.frontend.data :refer [fetch-text!]]
    [jeppes.frontend.router :refer [link]]))
-
-(defn- download-blog-post! [name on-complete]
-  (-> (str "https://raw.githubusercontent.com/jeppes/" name "/master/README.md")
-      (fetch-text!)
-      (.then on-complete)))
 
 (defn- format-date [date-string]
   (let [options #js {:year "numeric" :month "long" :day "numeric"}]
@@ -70,25 +63,20 @@
        [placeholder 39 :small]
        [placeholder 28 :small]])]])
 
-(defn- blog-entry [_]
-  (let [state (r/atom {})]
-    (fn [name]
-      (when (not= name (@state :name))
-        (reset! state {:name name})
-        (download-blog-post! name #(swap! state assoc :text %)))
-      [:article.blog-post
-       [link [""] "Home"]
-       (if (@state :text)
-         [markdown (@state :text)]
-         [blog-placeholder])
-       [:hr]
-       [:p
-        "If you want to leave feedback on this post, view it on "
-        [link (str "https://github.com/jeppes/" name)  "Github"] "."]])))
+(defn- blog-entry [name text]
+  [:article.blog-post
+   [link [""] "Home"]
+   (if text
+     [markdown text]
+     [blog-placeholder])
+   [:hr]
+   [:p
+    "If you want to leave feedback on this post, view it on "
+    [link (str "https://github.com/jeppes/" name)  "Github"] "."]])
 
-(defn blog-page [{name :name blogs :blogs repos :repos}]
+(defn blog-page [{name :name blogs :blogs repos :repos markdown :markdown}]
    [:div.blog-page
-    [blog-entry name]
+    [blog-entry name (get markdown name)]
     [:ul
      (for [post-name blogs]
        ^{:key post-name}
