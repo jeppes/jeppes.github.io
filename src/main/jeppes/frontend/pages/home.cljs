@@ -22,8 +22,8 @@
    [:section.projects
     [:h1 "Projects"]
     [:ul
-     [:li [link "https://github.com/spotify/diffuser" "Dif(fuser)"] " - A library for declaratively bridging data and side effects"]
+     [:li [link "https://github.com/spotify/diffuser" "Dif(fuser)"] " - A library for declaratively bridging data and side effects."]
      [:li [link "https://github.com/jeppes/Switcher" "Switcher"] " - A library for pattern matching in SwiftUI."]
      [:li [link "https://github.com/spotify/Mobius.swift" "Mobius.swift"] " - A state management library I helped build while at Spotify."]
      [:li [link "https://github.com/jeppes/tills" "tills"] " - A toy programming language."]]
-    [:p "Check out my " [link "https://github.com/jeppes" "Github"] " for more"]]])
+    [:p "Check out my " [link "https://github.com/jeppes" "Github"] " for more."]]])
