@@ -8,7 +8,7 @@
 (def initial-state {:route []
                     :repos {}
                     :markdown {}
-                    :blogs ["make-smaller-changes" "evolvable-apis"
+                    :blogs ["intentional-errors" "make-smaller-changes" "evolvable-apis"
                             "maybe-not-reflections" "oops" "funktioner"]})
 
 (defonce state (r/atom initial-state))
