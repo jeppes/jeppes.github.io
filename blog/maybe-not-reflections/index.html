@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Maybe Not Reflections — Jesper's Website</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <div class="blog-page">
+      <article class="blog-post">
+        <a href="/">← Home</a>
+
+        <h1>Maybe Not Reflections</h1>
+        <p>
+          Back in 2018, Rich Hickey&#39;s
+          <a href="https://www.youtube.com/watch?v=YR5WdGrpoug">Maybe Not</a>
+          sparked debate in the team I was working in at that time. It caused us
+          to re-evaluate many of the positions we had previously taken on both
+          types and API design. It also clarified an underlying issue that we
+          had been battling for a long time, namely which type-theoretic
+          constructs are appropriate to use across architectural boundaries to
+          minimize coupling.
+        </p>
+        <p>
+          A while later I began seeing many comments on Hacker News and Reddit
+          that were critical of Rich&#39;s talk. These critiques claimed Rich
+          does not understand (or even seems to hate) type systems and Haskell.
+          I think critique and debate is great, but these comments all seemed to
+          miss the underlying point of the talk. I can definitely see why these
+          misunderstandings happened — I personally needed to rewatch the talk
+          several times to begin to fully get it. &quot;Maybe Not&quot; is not
+          meant to deride Haskell or type systems. Instead, it is about enabling
+          compatible changes to be made to software over time.
+        </p>
+        <h2>Compatible Change</h2>
+        <p>
+          Software is almost never written in isolation. The functions you write
+          will end up being used by some other programmer. That other programmer
+          could be you in the future, someone on your team, or someone on the
+          other side of the world that you will never meet or even talk to.
+          Software also changes. That function you wrote will hopefully
+          continuously become better over time. Maybe it will be able to handle
+          more use cases or provide stronger guarantees. If the change you make
+          breaks existing callers of that function — either by forcing them to
+          rebuild, to adjust their types/names, or by causing issues that
+          manifest at runtime — this is called a breaking change. If the change
+          does not break existing callers, it is called a compatible change.
+        </p>
+        <p>
+          Breaking change is antithetical to distributed software
+          development<sup><a href="#fn1">1</a></sup
+          >. It breeds distrust, slows down development, and erases a lot of
+          previously made progress. I remember once buying a 2-year-old book
+          about a language, and the code in it was already incompatible with the
+          newer version of that language that I had installed locally. I tried
+          to downgrade the language, but that broke all the tooling I had
+          locally, and once that had been fixed it turned out some transitive
+          dependencies were also causing issues. After several hours of
+          frustration I gave up on running that code. All of this was with a
+          book that was only 2 years old. In that short period of time the
+          ecosystem had changed so much that the book and its accompanying
+          source code seemed like little more than a paperweight. This kept
+          happening with every upgrade of the language and with most library
+          updates. It completely killed my productivity and motivation.
+        </p>
+        <p>
+          Compatible change, on the other hand, enables distributed software
+          development. Updates to the language and libraries you use should make
+          your life simpler and better, not complicated and frustrating. Updates
+          should be made without fear and perhaps completely automatically. A
+          great library from 20 years ago can still be a great library today,
+          and if it solves your problem you should be able to pull it into your
+          project and just use it. Software development is fundamentally
+          distributed. Not everyone can update their code all at once. Despite
+          this reality, our community continues to forgive and even embrace
+          breaking change.
+        </p>
+        <p>
+          The languages we use often make this problem worse than it needs to
+          be. Changes that logically/semantically should be compatible are often
+          breaking changes in reality simply because of constraints imposed by
+          our programming languages. The <code>Maybe</code> and
+          <code>Either</code> types (as defined in Haskell) are just two
+          examples of this. These types are meant to encode uncertainty about
+          problems we are dealing with. Over time, as we gain certainty, it
+          would be nice if we could compatibly change our software to reflect
+          this. However, as Rich demonstrates, <code>Maybe</code> and
+          <code>Either</code>&#39;s requirement to lift their values into a
+          tagged union mean that such a change is necessarily a breaking change.
+        </p>
+        <p>
+          Rich also specifically points out that this is not an argument against
+          types in general and he notes that Kotlin&#39;s optional types solve
+          this specific problem, and how union types (in languages like Dotty or
+          TypeScript) can solve it generally. This insight about union types is
+          probably the most useful takeaway of the talk for me. I&#39;ve since
+          applied that style of thinking in large systems I have worked on with
+          great results.
+        </p>
+        <p>
+          To the aforementioned critics: these are simply the reasons that
+          Clojure has not embraced <code>Maybe</code> and <code>Either</code> to
+          solve the issue of expressing uncertainty. This does not mean that
+          these types are bad, or that Haskell or type systems are bad. These
+          types certainly have some benefits which Haskell takes great advantage
+          of. Similarly, it does not mean that expressing optionality is not
+          important. Clojure, however, is not aimed at the same types of
+          problems as Haskell is. They simply embrace different philosophies. I
+          think it&#39;s wonderful that we live in a world where we can use and
+          learn from both.
+        </p>
+        <h2>Digging into Optionality</h2>
+        <p>
+          After this, Rich points out that optional types (as expressed in the
+          languages we have today including Clojure) suffer from another
+          problem. That problem is that they are too broad of a solution, so
+          while they may fix a problem in one place, they often spill over to
+          create problems that permeate our systems. There are two questions
+          that always come to mind for me when seeing an optional type:
+          <strong>Why?</strong> and <strong>When?</strong>
+        </p>
+        <p>
+          <strong>Why</strong> is it optional? Was it added after the initial
+          program was released? Is it optional for users of the system to fill
+          out? Is it optional because it is only available at certain points in
+          time in the program, or when certain pre-conditions are met?
+        </p>
+        <p>
+          <strong>When</strong> do I have access to the underlying value? When
+          should I be setting a value and when should I set the value to
+          <code>Nothing</code>? When is the value present, and when should I be
+          especially careful about handling both states?
+        </p>
+        <p>
+          In reality, we might know the answers to these questions. Maybe the
+          answers are written on a napkin somewhere, or they exist in the head
+          of one of our colleagues. If we are lucky, someone left a comment
+          answering these questions, and if we are even luckier that comment is
+          both correct and helpful. The types, though, don&#39;t help us much.
+          The constant checking when unwrapping these optional types is not very
+          helpful either. It results in large amounts of extra code, and often
+          the fallback case just involves crashing the program entirely.
+        </p>
+        <p>
+          These problems really start adding up when aggregates of values are
+          considered. In lists and sets this is typically easily solvable: just
+          filter out the <code>Nothing</code> or <code>nil</code> values to turn
+          a <code>[Maybe a]</code> into <code>[a]</code> in Haskell or
+          <code>List&lt;Option&lt;A&gt;&gt;</code> into
+          <code>List&lt;A&gt;</code> in some other languages. But in tagged
+          aggregates (e.g. records in Haskell, structs in C-like languages, or
+          data classes in Kotlin) we often cannot do this. Type systems in most
+          languages require an entirely new type to be created for each
+          combination of known and unknown values<sup><a href="#fn2">2</a></sup
+          >. This explosion of types and names is simply not sustainable, so the
+          aggregates with optional members tend to stick around.
+        </p>
+        <h2>Taking Things Apart</h2>
+        <p>
+          Rich&#39;s proposed solution is to take things apart. He separates the
+          definition of the <em>schema</em> — the shape of an aggregate — from
+          the <em>selection</em>, the context in which the schemas are used. For
+          example, the definition of a car can specify that the make and model
+          of the car are optional (schema), and a specific function operating on
+          cars can specify that it requires cars where the make is known
+          (selection). This separation helps solve many of the questions listed
+          above, especially those in the <strong>When?</strong> category. It
+          also helps remove the boilerplate associated with checking by moving
+          that into the rule enforcement system itself.
+        </p>
+        <h2>Conclusion</h2>
+        <p>
+          &quot;Maybe Not&quot; is not an attack on Haskell or type systems; it
+          is an explanation of why Clojure is taking an unconventional approach
+          to optionality, and an exploration of what consequences that might
+          have. Clojure&#39;s approach is not necessarily correct, and
+          Haskell&#39;s approach is not necessarily bad. They made their own
+          sets of trade-offs, and as programmers we should learn from both so we
+          can choose the right tool for the job.
+        </p>
+        <hr />
+        <p id="fn1">
+          [1] To understand Rich's position on this subject, I recommend
+          watching his
+          <a href="https://www.youtube.com/watch?v=oyLBGkS5ICk"
+            >Spec-ulation Keynote</a
+          >.
+        </p>
+        <p id="fn2">
+          [2] TypeScript's
+          <a
+            href="https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types"
+            >Mapped Types</a
+          >
+          are an interesting approach to this problem in a typed language.
+        </p>
+        <hr />
+        <p>
+          Originally published on
+          <a href="https://github.com/jeppes/maybe-not-reflections">GitHub</a>.
+        </p>
+      </article>
+    </div>
+  </body>
+</html>
