@@ -183,3 +183,42 @@ blockquote {
   color: var(--text-color);
   opacity: 0.8;
 }
+
+.pr-diff {
+  border: 1px solid var(--background-color-placeholder);
+  border-radius: 6px;
+  padding: 16px;
+  margin: 16px 0;
+  font-family: "Menlo", "Monaco", "Courier New", monospace;
+  font-size: 14px;
+}
+
+.pr-diff-summary {
+  margin-bottom: 10px;
+}
+
+.pr-diff-add {
+  color: #2da44e;
+  font-weight: bold;
+}
+
+.pr-diff-del {
+  color: #cf222e;
+  font-weight: bold;
+}
+
+.pr-diff-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--background-color-placeholder);
+}
+
+.pr-diff-bar-add {
+  background: #2da44e;
+}
+
+.pr-diff-bar-del {
+  background: #cf222e;
+}

@@ -41,16 +41,28 @@
           of the following would you rather be faced with when a colleague sends
           you a PR to look at?
         </p>
-        <p>
-          <img
-            src="https://raw.githubusercontent.com/jeppes/make-smaller-changes/main/small-pr.png"
-            alt="PR Diff with 17 lines added, 15 lines removed"
-          />
-          <img
-            src="https://raw.githubusercontent.com/jeppes/make-smaller-changes/main/large-pr.png"
-            alt="PR Diff with 536 lines added, 80 lines removed"
-          />
-        </p>
+        <div class="pr-diff">
+          <div class="pr-diff-summary">
+            1 file changed,
+            <span class="pr-diff-add">5 insertions(+)</span>,
+            <span class="pr-diff-del">3 deletions(-)</span>
+          </div>
+          <div class="pr-diff-bar">
+            <div class="pr-diff-bar-add" style="width: 63%"></div>
+            <div class="pr-diff-bar-del" style="width: 37%"></div>
+          </div>
+        </div>
+        <div class="pr-diff">
+          <div class="pr-diff-summary">
+            23 files changed,
+            <span class="pr-diff-add">1238 insertions(+)</span>,
+            <span class="pr-diff-del">632 deletions(-)</span>
+          </div>
+          <div class="pr-diff-bar">
+            <div class="pr-diff-bar-add" style="width: 66%"></div>
+            <div class="pr-diff-bar-del" style="width: 34%"></div>
+          </div>
+        </div>
         <p>Make a habit of making smaller changes.</p>
 
         <hr />
