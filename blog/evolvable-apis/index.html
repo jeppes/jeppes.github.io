@@ -35,7 +35,7 @@
           Let&#39;s consider the case of creating the API for a
           <code>Button</code> component in a user interface. To help fully
           illustrate the properties of the ideal (in my opinion) state of such
-          an API, I&#39;ll begin by showing some less than ideal examples.
+          an API, I&#39;ll begin by showing some less-than-ideal examples.
         </p>
         <p>Poor API design typically results in buttons that look like this:</p>
         <pre
@@ -113,7 +113,7 @@
         ><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">Button</span><span style="color:#24292E;--shiki-dark:#E1E4E8">(text </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#032F62;--shiki-dark:#9ECBFF"> "Download"</span><span style="color:#24292E;--shiki-dark:#E1E4E8">, onClick </span><span style="color:#D73A49;--shiki-dark:#F97583">=</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> download)</span></span></code></pre>
         <p>
           The user can now simply leave out the arguments that they don&#39;t
-          care about. This results in terse usages of the button, while keeping
+          care about. This results in terser use of the button, while keeping
           the API flexible.
         </p>
         <p>
@@ -129,8 +129,8 @@
         </p>
         <p>
           Our API is already looking good! New functionality can be added
-          without breaking existing callers, and usages of the API are clear and
-          concise. I believe there is one more step that can be taken: using
+          without breaking existing callers, and the API is clear and concise to
+          use. I believe there is one more step that can be taken: using
           heterogeneous maps for the arguments!
         </p>
         <pre
