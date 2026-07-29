@@ -147,23 +147,22 @@ li {
 
 .blog-preview {
   display: block;
-  padding: 8px 16px;
+  padding: 16px;
   border-radius: 5px;
   background-color: var(--background-color-contrast);
   margin-bottom: 16px;
   color: var(--text-color);
-  font-weight: normal;
   text-decoration: none;
 }
 
 .blog-preview:hover {
-  text-decoration: none;
   opacity: 0.85;
+  text-decoration: none;
 }
 
 .blog-preview > h2 {
   font-size: 22px;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
   color: var(--link-color);
 }
 
@@ -171,6 +170,13 @@ li {
   color: var(--text-color);
   font-weight: normal;
   margin: 4px 0;
+}
+
+.blog-preview > p:last-child {
+  font-size: 14px;
+  opacity: 0.5;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 /* Shiki dual-theme: respect prefers-color-scheme */
