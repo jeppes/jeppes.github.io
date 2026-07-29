@@ -49,6 +49,14 @@ h1 {
   font-weight: 600;
 }
 
+.home-page section h1 {
+  margin-top: 48px;
+}
+
+.home-page section:first-child h1 {
+  margin-top: 0;
+}
+
 #hello {
   cursor: pointer;
   display: inline-block;
@@ -138,36 +146,41 @@ li {
 
 .blog-preview {
   display: block;
-  padding: 16px;
-  border-radius: 5px;
-  background-color: var(--background-color-contrast);
-  margin-bottom: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--background-color-placeholder);
   color: var(--text-color);
   text-decoration: none;
 }
 
+
+.blog-preview:first-of-type {
+  padding-top: 0;
+}
+
 .blog-preview:hover {
-  opacity: 0.85;
   text-decoration: none;
 }
 
+.blog-preview:hover > h2 {
+  text-decoration: underline;
+}
+
 .blog-preview > h2 {
-  font-size: 22px;
-  margin: 0 0 8px;
+  font-size: 20px;
+  margin: 0 0 6px;
   color: var(--link-color);
 }
 
 .blog-preview > p {
   color: var(--text-color);
   font-weight: normal;
-  margin: 4px 0;
+  margin: 0;
 }
 
 .blog-preview > p:last-child {
   font-size: 14px;
   opacity: 0.5;
-  margin-top: 10px;
-  margin-bottom: 0;
+  margin-top: 6px;
 }
 
 /* Always use Shiki dark theme */
