@@ -13,33 +13,36 @@
 
         <h1>Make Smaller Changes</h1>
         <p>
-          Staying productive in an ever-growing codebase can be an uphill battle.
-          Sometimes merging seemingly simple things can take days or even weeks.
-          By the time someone gets around to reviewing your diff, it&#39;s often
-          outdated and riddled with merge conflicts. The one strategy that has
-          helped me deal with this more than any other is to
-          <strong>make smaller changes</strong>.
+          Being productive in a large project is a challenge. Simple changes can
+          take days or weeks to get merged, code reviews become unfocused, and
+          conflicting changes sneak in faster than you can fix them.
         </p>
+        <p>What should you do instead? <strong>Make smaller changes.</strong></p>
+        <ul>
+          <li>
+            <strong>Split large pull requests (PRs) into smaller chunks.</strong>
+            Smaller PRs get reviewed faster, attract more focused feedback, and
+            encourage simpler designs.
+          </li>
+          <li>
+            <strong>If the chunks are independent, submit them all at once.</strong>
+            Independent PRs can be merged in any order, or skipped entirely if
+            they turn out to be unnecessary.
+          </li>
+          <li>
+            <strong>If you have a sequence of changes, use stacked PRs.</strong>
+            Each PR builds on the last, so reviewers can focus on one layer of
+            change at a time.
+          </li>
+          <li>
+            <strong>Split out bug fixes into separate PRs and submit them immediately.</strong>
+            I've seen too many small bugs go unfixed because they got tangled up
+            in unrelated feature work.
+          </li>
+        </ul>
         <p>
-          I follow the rule of thumb that PRs with the word &quot;and&quot; in
-          the description should probably be broken up, even if they are small
-          to begin with. Not only do these PRs get reviewed and merged
-          significantly faster, the quality of reviews also tends to be better.
-          The process of dividing up a PR into independently mergeable parts
-          also encourages simpler, more decoupled designs.
-        </p>
-        <p>
-          If possible, you should try to break your PR down into pieces which
-          are independent of each other. These pieces can then be merged in any
-          order and some pieces may never be merged. Even when it isn&#39;t
-          possible to break down a PR in this manner, there can still be value
-          in breaking a large PR up into a series of smaller PRs, but be mindful
-          of the order and communicate that clearly in the PR descriptions.
-        </p>
-        <p>
-          Put yourself in the shoes of the reviewer when submitting a PR. Which
-          of the following would you rather be faced with when a colleague sends
-          you a PR to look at?
+          Also, when you submit a PR put yourself in the shoes of your reviewer.
+          Which of the following would you rather be faced with?
         </p>
         <div class="pr-diff-compare">
           <div class="pr-diff">
@@ -71,6 +74,10 @@
           </div>
         </div>
         <p>Make a habit of making smaller changes.</p>
+        <p>
+          Not an ad, but <a href="https://gitbutler.com/">GitButler</a> is a
+          great tool for this.
+        </p>
 
         <hr />
         <p>
