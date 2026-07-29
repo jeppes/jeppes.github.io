@@ -134,8 +134,36 @@ li {
 }
 
 
-.blog-preview:first-of-type {
+.blog-preview:first-of-type,
+.project-item:first-of-type {
   padding-top: 0;
+}
+
+.project-item {
+  display: block;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--background-color-placeholder);
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.project-item:hover {
+  text-decoration: none;
+}
+
+.project-item:hover > h3 {
+  text-decoration: underline;
+}
+
+.project-item > h3 {
+  font-size: 18px;
+  margin: 0 0 6px;
+  color: var(--link-color);
+}
+
+.project-item > p {
+  margin: 0;
+  font-weight: normal;
 }
 
 .blog-preview:hover {
