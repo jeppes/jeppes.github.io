@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>if (false) - Jesper's Website</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <div class="blog-page">
+      <article class="blog-post">
+        <a href="/">← Home</a>
+        <!-- Code syntax highlighting: Shiki (github-light / github-dark dual theme) -->
+        <h1>if (false)</h1>
+        <p>
+          When facing a difficult bug, it&#39;s common to comment out or even
+          delete seemingly irrelevant code. While this is a great approach, it
+          adds cognitive load to reviews, which increases the risk of mistakes.
+        </p>
+        <p>
+          As an alternative, I use what I call the <code>if (false)</code>
+          pattern, where I surround code that I want to suppress with an
+          impossible conditional. The key here is that this change will be
+          <strong>stopped by my linter</strong>, but
+          <strong>ignored by my compiler</strong>. This means I can run the
+          code just fine, but I can never accidentally merge it.
+        </p>
+        <hr />
+        <h2>Some examples</h2>
+
+        <p>Skip over code with <code>if (false)</code>:</p>
+        <div class="code-toggle">
+          <div class="toggle-btns">
+            <button class="toggle-btn" data-panel="before">Before</button>
+            <button class="toggle-btn active" data-panel="after">After</button>
+          </div>
+          <div class="toggle-panel hidden" data-panel="before"><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">line1</span><span style="color:#24292E;--shiki-dark:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">line2</span><span style="color:#24292E;--shiki-dark:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">line3</span><span style="color:#24292E;--shiki-dark:#E1E4E8">()</span></span></code></pre></div>
+          <div class="toggle-panel" data-panel="after"><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">line1</span><span style="color:#24292E;--shiki-dark:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">if</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> (</span><span style="color:#005CC5;--shiki-dark:#79B8FF">false</span><span style="color:#24292E;--shiki-dark:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">  line2</span><span style="color:#24292E;--shiki-dark:#E1E4E8">() </span><span style="color:#6A737D;--shiki-dark:#6A737D">// &#x3C;--- This line will no longer run</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#B392F0">line3</span><span style="color:#24292E;--shiki-dark:#E1E4E8">()</span></span></code></pre></div>
+        </div>
+
+        <p>Return early to skip a function&#39;s implementation:</p>
+        <div class="code-toggle">
+          <div class="toggle-btns">
+            <button class="toggle-btn" data-panel="before">Before</button>
+            <button class="toggle-btn active" data-panel="after">After</button>
+          </div>
+          <div class="toggle-panel hidden" data-panel="before"><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">function</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> calculateTheThing</span><span style="color:#24292E;--shiki-dark:#E1E4E8">()</span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> number</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  return</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> someComplexThing</span><span style="color:#24292E;--shiki-dark:#E1E4E8">() </span><span style="color:#D73A49;--shiki-dark:#F97583">+</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> someOtherComplexThing</span><span style="color:#24292E;--shiki-dark:#E1E4E8">() </span><span style="color:#D73A49;--shiki-dark:#F97583">/</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> more</span><span style="color:#24292E;--shiki-dark:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre></div>
+          <div class="toggle-panel" data-panel="after"><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">function</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> calculateTheThing</span><span style="color:#24292E;--shiki-dark:#E1E4E8">()</span><span style="color:#D73A49;--shiki-dark:#F97583">:</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> number</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  return</span><span style="color:#005CC5;--shiki-dark:#79B8FF"> 5</span><span style="color:#6A737D;--shiki-dark:#6A737D"> // &#x3C;--- The rest of the function is ignored</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F97583">  return</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> someComplexThing</span><span style="color:#24292E;--shiki-dark:#E1E4E8">() </span><span style="color:#D73A49;--shiki-dark:#F97583">+</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> someOtherComplexThing</span><span style="color:#24292E;--shiki-dark:#E1E4E8">() </span><span style="color:#D73A49;--shiki-dark:#F97583">/</span><span style="color:#6F42C1;--shiki-dark:#B392F0"> more</span><span style="color:#24292E;--shiki-dark:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">}</span></span></code></pre></div>
+        </div>
+
+        <p>
+          Forcing a conditional to be true by adding <code>true || ...</code>:
+        </p>
+        <div class="code-toggle">
+          <div class="toggle-btns">
+            <button class="toggle-btn" data-panel="before">Before</button>
+            <button class="toggle-btn active" data-panel="after">After</button>
+          </div>
+          <div class="toggle-panel hidden" data-panel="before"><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">conditional</span></span></code></pre></div>
+          <div class="toggle-panel" data-panel="after"><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">true</span><span style="color:#D73A49;--shiki-dark:#F97583"> ||</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> conditional</span></span></code></pre></div>
+        </div>
+
+        <p>
+          Forcing a conditional to be false by adding
+          <code>false &amp;&amp; ...</code>:
+        </p>
+        <div class="code-toggle">
+          <div class="toggle-btns">
+            <button class="toggle-btn" data-panel="before">Before</button>
+            <button class="toggle-btn active" data-panel="after">After</button>
+          </div>
+          <div class="toggle-panel hidden" data-panel="before"><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">conditional</span></span></code></pre></div>
+          <div class="toggle-panel" data-panel="after"><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#005CC5;--shiki-dark:#79B8FF">false</span><span style="color:#D73A49;--shiki-dark:#F97583"> &#x26;&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> conditional</span></span></code></pre></div>
+        </div>
+
+        <p>
+          Prevent a component from rendering in React with
+          <code>{ false &amp;&amp; ... }</code>:
+        </p>
+        <div class="code-toggle">
+          <div class="toggle-btns">
+            <button class="toggle-btn" data-panel="before">Before</button>
+            <button class="toggle-btn active" data-panel="after">After</button>
+          </div>
+          <div class="toggle-panel hidden" data-panel="before"><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&#x3C;></span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &#x3C;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">SkipMe</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &#x3C;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">KeepMe</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&#x3C;/></span></span></code></pre></div>
+          <div class="toggle-panel" data-panel="after"><pre class="shiki shiki-themes github-light github-dark" style="background-color:#fff;--shiki-dark-bg:#24292e;color:#24292e;--shiki-dark:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&#x3C;></span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  { </span><span style="color:#005CC5;--shiki-dark:#79B8FF">false</span><span style="color:#D73A49;--shiki-dark:#F97583"> &#x26;&#x26;</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> &#x3C;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">SkipMe</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> /> }</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">  &#x3C;</span><span style="color:#005CC5;--shiki-dark:#79B8FF">KeepMe</span><span style="color:#24292E;--shiki-dark:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#E1E4E8">&#x3C;/></span></span></code></pre></div>
+        </div>
+
+
+        <hr />
+        <h2>Conclusion</h2>
+        <p>
+          There is no harm in introducing unnecessary conditionals as long as
+          your CI system is set up to detect them. Lean into this in order to
+          experiment with your code while developing more easily and safely.
+        </p>
+
+        <p>
+          This post was written while I was still largely coding manually, but
+          I&#39;ve found this pattern to be useful when developing with agents
+          as well. Agents will happily delete code in order to run an
+          experiment, and long context windows or separate sessions can easily
+          cause these temporary experiments to accidentally become permanent.
+          Instructing the agent to use this pattern helps protect you from that.
+        </p>
+        <hr />
+        <p>
+          Originally published on
+          <a href="https://github.com/jeppes/intentional-errors">GitHub</a>.
+        </p>
+      </article>
+    </div>
+    <script>
+      document.querySelectorAll(".code-toggle").forEach((toggle) => {
+        toggle.querySelectorAll(".toggle-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const panel = btn.dataset.panel;
+            toggle
+              .querySelectorAll(".toggle-btn")
+              .forEach((b) => b.classList.toggle("active", b === btn));
+            toggle
+              .querySelectorAll(".toggle-panel")
+              .forEach((p) =>
+                p.classList.toggle("hidden", p.dataset.panel !== panel),
+              );
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
