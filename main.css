@@ -1,23 +1,11 @@
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-color: #191919;
-    --background-color-contrast: #333;
-    --background-color-placeholder: #666;
-    --link-color: #3396f6;
-    --text-color: white;
-    --selection-opacity: 0.5;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --background-color: #f5f5f5;
-    --background-color-contrast: white;
-    --background-color-placeholder: #ccc;
-    --link-color: #0366d6;
-    --text-color: #101010;
-    --selection-opacity: 0.5;
-  }
+:root {
+  --background-color: #191919;
+  --background-color-contrast: #333;
+  --background-color-placeholder: #666;
+  --link-color: #3396f6;
+  --text-color: #c9d1d9;
+  --heading-color: #f0f6fc;
+  --selection-opacity: 0.5;
 }
 
 html {
@@ -48,6 +36,12 @@ html {
   width: 800px;
   padding: 32px 16px;
   box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--heading-color);
 }
 
 h1 {
@@ -176,16 +170,14 @@ li {
   margin-bottom: 0;
 }
 
-/* Shiki dual-theme: respect prefers-color-scheme */
-@media (prefers-color-scheme: dark) {
-  .shiki,
-  .shiki span {
-    color: var(--shiki-dark) !important;
-    background-color: var(--shiki-dark-bg) !important;
-    font-style: var(--shiki-dark-font-style) !important;
-    font-weight: var(--shiki-dark-font-weight) !important;
-    text-decoration: var(--shiki-dark-text-decoration) !important;
-  }
+/* Always use Shiki dark theme */
+.shiki,
+.shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
 .shiki {
@@ -246,6 +238,10 @@ blockquote {
   margin-bottom: 10px;
 }
 
+.pr-diff-counts {
+  margin-top: 6px;
+}
+
 .pr-diff-add {
   color: #2da44e;
   font-weight: bold;
@@ -270,4 +266,22 @@ blockquote {
 
 .pr-diff-bar-del {
   background: #cf222e;
+}
+
+.pr-diff-compare {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.pr-diff-compare .pr-diff {
+  flex: 1;
+  margin: 0;
+}
+
+.pr-diff-or {
+  font-size: 14px;
+  opacity: 0.5;
+  flex-shrink: 0;
 }
