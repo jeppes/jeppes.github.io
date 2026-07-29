@@ -46,10 +46,7 @@ html {
 .blog-post {
   max-width: 100%;
   width: 800px;
-  background-color: var(--background-color-contrast);
-  border-radius: 5px;
-  padding: 32px;
-  margin-bottom: 16px;
+  padding: 32px 16px;
   box-sizing: border-box;
 }
 
@@ -234,6 +231,7 @@ blockquote {
   color: var(--text-color);
   opacity: 0.8;
 }
+
 
 .pr-diff {
   border: 1px solid var(--background-color-placeholder);
